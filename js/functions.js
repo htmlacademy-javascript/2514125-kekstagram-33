@@ -44,7 +44,7 @@ console.log('Тест №1. Ожидаю 2023, получаю - ', toNumberStrin
 console.log('Тест №2. Ожидаю 2022, получаю - ', toNumberString('ECMAScript 2022'));
 console.log('Тест №3. Ожидаю 105, получаю - ', toNumberString('1 кефир, 0.5 батона'));
 console.log('Тест №4. Ожидаю 7, получаю - ', toNumberString('агент 007'));
-console.log('Тест №6. Ожидаю NaN, получаю - ', toNumberString('а я томат'));
-console.log('Тест №7. Ожидаю 2023, получаю - ', toNumberString(2023));
-console.log('Тест №8. Ожидаю 1, получаю - ', toNumberString(-1));
-console.log('Тест №9. Ожидаю 15, получаю - ', toNumberString(1.5));
+console.log('Тест №5. Ожидаю NaN, получаю - ', toNumberString('а я томат'));
+console.log('Тест №6. Ожидаю 2023, получаю - ', toNumberString(2023));
+console.log('Тест №7. Ожидаю 1, получаю - ', toNumberString(-1));
+console.log('Тест №8. Ожидаю 15, получаю - ', toNumberString(1.5));
