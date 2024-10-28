@@ -35,6 +35,8 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
+const PICTURE_COUNT = 25;
+
 // Генерация коментария
 const generateMessage = () => Array.from({length: getRandomInteger(1, 2)}, () => getRandomArrayElement(MESSAGES)).join('');
 
@@ -55,7 +57,7 @@ const generatePicture = (index) => ({
 });
 
 // Создание 25 объектов
-const getPictures = () => Array.from({length: 25}, (_, pictureIndex) => generatePicture(pictureIndex + 1));
+const getPictures = () => Array.from({length: PICTURE_COUNT}, (_, pictureIndex) => generatePicture(pictureIndex + 1));
 
 console.log(getPictures());
 
