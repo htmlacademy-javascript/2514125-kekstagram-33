@@ -48,3 +48,26 @@ console.log('Тест №5. Ожидаю NaN, получаю - ', toNumberString
 console.log('Тест №6. Ожидаю 2023, получаю - ', toNumberString(2023));
 console.log('Тест №7. Ожидаю 1, получаю - ', toNumberString(-1));
 console.log('Тест №8. Ожидаю 15, получаю - ', toNumberString(1.5));
+
+
+// Функция Делу - время
+const getWorkTime = (startWork, endWork, startMeeting, lengthMeeting) => {
+  const timeToMinutes = (time) => {
+    const [hours, minutes] = time.split(':').map(Number);
+    return (hours * 60) + minutes;
+  };
+
+  const startWorkInMinutes = timeToMinutes(startWork);
+  const endWorkInMinutes = timeToMinutes(endWork);
+  const startMeetingInMinutes = timeToMinutes(startMeeting);
+  const endMettingInMinutes = startMeetingInMinutes + lengthMeeting;
+
+  return startMeetingInMinutes >= startWorkInMinutes && endMettingInMinutes <= endWorkInMinutes;
+
+};
+
+console.log(getWorkTime('08:00', '17:30', '14:00', 90));
+console.log(getWorkTime('8:0', '10:0', '8:0', 120));
+console.log(getWorkTime('08:00', '14:30', '14:00', 90));
+console.log(getWorkTime('14:00', '17:30', '08:0', 90));
+console.log(getWorkTime('8:00', '17:30', '08:00', 900));
