@@ -1,4 +1,4 @@
-import {getRandomInteger, getRandomArrayElement} from './util.js';
+import {getRandomInteger, getRandomArrayElement, createIdGenerator} from './util.js';
 
 const NAMES = [
   'Антон',
@@ -36,29 +36,40 @@ const MESSAGES = [
 ];
 
 const PICTURE_COUNT = 25;
+const MIN_VALUE_MESSAGE = 1;
+const MAX_VALUE_MESSAGE = 2;
+const MIN_VALUE_AVATAR = 1;
+const MAX_VALUE_AVATAR = 6;
+const MIN_VALUE_LIKES = 15;
+const MAX_VALUE_LIKES = 200;
+const MIN_VALUE_COMMENTS_LENGTH = 0;
+const MAX_VALUE_COMMENTS_LENGTH = 30;
 
 // Генерация коментария
-const generateMessage = () => Array.from({length: getRandomInteger(1, 2)}, () => getRandomArrayElement(MESSAGES)).join('');
+const generateMessage = () => Array.from({length: getRandomInteger(MIN_VALUE_MESSAGE, MAX_VALUE_MESSAGE)}, () => getRandomArrayElement(MESSAGES)).join('');
 
-const generateComment = (index) => ({
-  id: index,
-  avatar: 'img/avatar-' + getRandomInteger(1, 6) + '.svg',
+const createIdComment = createIdGenerator();
+
+const generateComment = () => ({
+  id: createIdComment(),
+  avatar: `img/avatar-${getRandomInteger(MIN_VALUE_AVATAR, MAX_VALUE_AVATAR)}.svg`,
   message: generateMessage(),
   name: getRandomArrayElement(NAMES)
 });
 
 //Генерация картинки
-const generatePicture = (index) => ({
-  id: index,
-  url: 'photos/' + getRandomInteger(1, 25) + '.jpg',
+const createIdPicture = createIdGenerator();
+const createIdPhoto = createIdGenerator();
+
+const generatePicture = () => ({
+  id: createIdPicture(),
+  url: `photos/${createIdPhoto()}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomInteger(15, 200),
-  comments: Array.from({length: getRandomInteger(1, 30)}, (_, commentIndex) => generateComment(commentIndex)),
+  likes: getRandomInteger(MIN_VALUE_LIKES, MAX_VALUE_LIKES),
+  comments: Array.from({length: getRandomInteger(MIN_VALUE_COMMENTS_LENGTH, MAX_VALUE_COMMENTS_LENGTH)}, (_, commentIndex) => generateComment(commentIndex)),
 });
 
 // Создание 25 объектов
 const getPictures = () => Array.from({length: PICTURE_COUNT}, (_, pictureIndex) => generatePicture(pictureIndex + 1));
-
-console.log(getPictures());
 
 export {getPictures};
