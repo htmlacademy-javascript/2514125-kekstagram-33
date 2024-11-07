@@ -1,3 +1,4 @@
 import {getPictures} from './data.js';
+import {makePicturesOnPage} from './thumbnails.js';
 
-console.log(getPictures());
+makePicturesOnPage (getPictures());
