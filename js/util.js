@@ -31,4 +31,11 @@ const createRandomIdFromRangeGenerator = function (min, max) {
 // Получение случайного элемента из массива
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-export {getRandomInteger, createRandomIdFromRangeGenerator, getRandomArrayElement};
+// Генерация случайного, уникального ID
+const createIdGenerator = () => {
+  let currentId = 0;
+
+  return () => ++currentId;
+};
+
+export {getRandomInteger, createRandomIdFromRangeGenerator, getRandomArrayElement, createIdGenerator};
