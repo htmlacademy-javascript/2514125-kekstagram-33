@@ -17,7 +17,7 @@ const createRandomIdFromRangeGenerator = function (min, max) {
     let currentValue = getRandomInteger(min, max);
 
     if (previousValues.length >= (max - min + 1)) {
-      console.error('Перебраны все числа из диапазона от ' + min + ' до ' + max);
+      console.error(`Перебраны все числа из диапазона от ${ min } до ${ max }`);
       return null;
     }
     while (previousValues.includes(currentValue)) {
@@ -38,4 +38,8 @@ const createIdGenerator = () => {
   return () => ++currentId;
 };
 
-export {getRandomInteger, createRandomIdFromRangeGenerator, getRandomArrayElement, createIdGenerator};
+// Проверка на соответствие ESC
+
+const isEscKey = (evt) => evt.key === 'Escape';
+
+export {getRandomInteger, createRandomIdFromRangeGenerator, getRandomArrayElement, createIdGenerator, isEscKey};
