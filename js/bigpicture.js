@@ -9,7 +9,7 @@ const closeModalButton = document.querySelector('.big-picture__cancel');
 const bigPictureClass = bigPicture.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPicture.querySelector('.likes-count');
 const bigPicturesCaption = bigPicture.querySelector('.social__caption');
-const COMMENTS_TO_SHOWN = 5;
+const COMMENTS_TO_SHOW = 5;
 let commentsShown = 0;
 let comments = [];
 
@@ -50,7 +50,7 @@ const createBigPicutersComment = ({avatar, name, message}) => {
 };
 
 const renderComments = () => {
-  commentsShown += COMMENTS_TO_SHOWN;
+  commentsShown += COMMENTS_TO_SHOW;
   if (commentsShown >= comments.length) {
     commentsLoader.classList.add('hidden');
     commentsShown = comments.length;
@@ -65,7 +65,6 @@ const renderComments = () => {
     const commentElement = createBigPicutersComment(comments[i]);
     fragment.appendChild(commentElement);
   }
-
 
   commentsList.appendChild(fragment);
   commentsCount.innerHTML = `<span class="social__comment-shown-count">${commentsShown}</span> из <span class="comments-count">${comments.length}</span> комментариев`;
