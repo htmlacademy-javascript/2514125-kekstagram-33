@@ -17,12 +17,12 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const closeUserModal = () => {
+function closeUserModal() {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onDocumentKeydown);
-};
+}
 
 const createBigPicutersComment = ({avatar, name, message}) => {
   const comment = document.createElement('li');
