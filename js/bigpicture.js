@@ -51,6 +51,7 @@ const createBigPicutersComment = ({avatar, name, message}) => {
 
 const renderComments = () => {
   commentsShown += COMMENTS_TO_SHOW;
+
   if (commentsShown >= comments.length) {
     commentsLoader.classList.add('hidden');
     commentsShown = comments.length;
