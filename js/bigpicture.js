@@ -96,8 +96,8 @@ const onCommentsLoaderClick = () => renderComments();
 
 commentsLoader.addEventListener('click', (onCommentsLoaderClick));
 
-closeModalButton.addEventListener('click', () => {
-  closeUserModal();
-});
+const onCloseModalButtonClick = () => closeUserModal();
 
-export { openUserModal };
+closeModalButton.addEventListener('click', (onCloseModalButtonClick));
+
+export { openUserModal, body };
