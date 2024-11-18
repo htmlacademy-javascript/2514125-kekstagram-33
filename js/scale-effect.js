@@ -1,13 +1,13 @@
 const smallerButton = document.querySelector('.scale__control--smaller');
 const biggerButton = document.querySelector('.scale__control--bigger');
 const scaleValue = document.querySelector('.scale__control--value');
-const image = document.querySelector('.img-upload__preview img');
+const imagePreview = document.querySelector('.img-upload__preview img');
 let currentScale = 100;
 
 const updateScale = (newScaleValue) => {
   currentScale = newScaleValue;
   scaleValue.value = currentScale;
-  image.style.transform = `scale(${currentScale / 100})`;
+  imagePreview.style.transform = `scale(${currentScale / 100})`;
 };
 
 const onSmallerButtonClick = () => {
