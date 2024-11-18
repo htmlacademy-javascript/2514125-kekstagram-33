@@ -9,6 +9,9 @@ const closeModalButton = document.querySelector('.big-picture__cancel');
 const bigPictureClass = bigPicture.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPicture.querySelector('.likes-count');
 const bigPicturesCaption = bigPicture.querySelector('.social__caption');
+const COMMENTS_TO_SHOW = 5;
+let commentsShown = 0;
+let comments = [];
 
 const onDocumentKeydown = (evt) => {
   if (isEscKey(evt)) {
@@ -20,6 +23,7 @@ const onDocumentKeydown = (evt) => {
 function closeUserModal() {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
+  commentsShown = 0;
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }
@@ -45,16 +49,26 @@ const createBigPicutersComment = ({avatar, name, message}) => {
   return comment;
 };
 
-const renderComments = (comments) => {
+const renderComments = () => {
+  commentsShown += COMMENTS_TO_SHOW;
+
+  if (commentsShown >= comments.length) {
+    commentsLoader.classList.add('hidden');
+    commentsShown = comments.length;
+  } else {
+    commentsLoader.classList.remove('hidden');
+  }
+
   commentsList.innerHTML = '';
 
   const fragment = document.createDocumentFragment();
-  comments.forEach((comment) => {
-    const commentElement = createBigPicutersComment(comment);
+  for (let i = 0; i < commentsShown; i++) {
+    const commentElement = createBigPicutersComment(comments[i]);
     fragment.appendChild(commentElement);
-  });
+  }
 
   commentsList.appendChild(fragment);
+  commentsCount.innerHTML = `<span class="social__comment-shown-count">${commentsShown}</span> из <span class="comments-count">${comments.length}</span> комментариев`;
 };
 
 const renderBigPictureDetails = ({url, description, likes}) => {
@@ -68,14 +82,19 @@ const renderBigPictureDetails = ({url, description, likes}) => {
 const openUserModal = (data) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-opem');
-  commentsCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
 
   renderBigPictureDetails(data);
-  renderComments(data.comments);
+  comments = data.comments;
+  if (comments.length > 0) {
+    renderComments(comments);
+  }
 
   document.addEventListener('keydown', onDocumentKeydown);
 };
+
+const onCommentsLoaderClick = () => renderComments();
+
+commentsLoader.addEventListener('click', (onCommentsLoaderClick));
 
 closeModalButton.addEventListener('click', () => {
   closeUserModal();
