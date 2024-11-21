@@ -1,4 +1,5 @@
 import { isEscKey } from './util.js';
+import './fillter-effect.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
