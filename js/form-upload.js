@@ -1,5 +1,7 @@
 import { isEscKey } from './util.js';
 import './fillter-effect.js';
+import { createErrorMessage, createSuccessMessage } from './result-message-form.js';
+import { sendData } from './api.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
@@ -8,6 +10,7 @@ const uploadFile = document.querySelector('#upload-file');
 const hashtagField = document.querySelector('.text__hashtags');
 const descriptionField = document.querySelector('.text__description');
 const cancelUploadButton = document.querySelector('.img-upload__cancel');
+const submitButton = form.querySelector('.img-upload__submit');
 
 const HASHTAG_UNVALID = /[^\w\u0400-\u04FF]/;
 
@@ -80,11 +83,49 @@ pristine.addValidator(
 
 const onCancelUploadButtonClick = () => hideOverlay();
 const onFileInputChange = () => showOverlay();
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Идет отправка';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+const resetForm = () => {
+  const scaleValue = document.querySelector('.scale__control--value');
+  scaleValue.value = 100;
+  hashtagField.value = '';
+  descriptionField.value = '';
+  uploadFile.value = '';
+};
+
+const setUserFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(() => {
+          createSuccessMessage();
+          onSuccess();
+          resetForm();
+        })
+        .catch(() => {
+          createErrorMessage();
+        })
+        .finally(() => {
+          unblockSubmitButton();
+        });
+    }
+  });
 };
 
 uploadFile.addEventListener('change', onFileInputChange);
 cancelUploadButton.addEventListener('click', onCancelUploadButtonClick);
-form.addEventListener('submit', onFormSubmit);
+
+export {setUserFormSubmit, showOverlay, hideOverlay};

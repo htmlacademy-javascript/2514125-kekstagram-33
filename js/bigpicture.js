@@ -100,4 +100,4 @@ const onCloseModalButtonClick = () => closeUserModal();
 
 closeModalButton.addEventListener('click', (onCloseModalButtonClick));
 
-export { openUserModal, body };
+export { openUserModal, closeUserModal };
