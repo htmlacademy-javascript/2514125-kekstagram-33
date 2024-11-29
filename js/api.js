@@ -1,43 +1,26 @@
-import { makePicturesOnPage } from './thumbnails';
-import { createDataErrorMessage } from './result-message-data';
-import { createErrorMessage, createSuccessMessage } from './result-message-form.js';
-
-
 const BASE_URL = 'https://32.javascript.htmlacademy.pro/kekstagram';
+
 const Route = {
   GET_DATA: '/data',
   SEND_DATA: '/',
 };
 
-const getData = () => fetch(
-  `${BASE_URL}${Route.GET_DATA}`)
-  .then((response) => {
-    if (response.ok) {
-      return response.json();
-    }
+const Method = {
+  GET: 'GET',
+  POST: 'POST',
+};
 
-    createDataErrorMessage();
-  })
-  .then((photos) => {
-    makePicturesOnPage (photos);
-  })
-  .catch(() => {
-    createDataErrorMessage();
-  });
+const ErrorText = {
+  [Method.GET]: 'Не удалось загрузить данные. Попробуйте еще раз',
+  [Method.Post]: 'Не удалось отправить данные формы',
+};
 
-const sendData = (body) => fetch(
-  `${BASE_URL}${Route.GET_DATA}`,
-  {
-    method: 'POST',
-    body,
-  })
-  .then((response) => {
-    if (!response.ok) {
-      createErrorMessage();
-    }
-  })
-  .catch(() => {
-    createErrorMessage();
-  });
+const load = async (route, method = Method.GET, body = null) => {
+  const response = await fetch(`${BASE_URL}${route}`, {method, body});
+  return response.ok ? await response.json() : Promise.reject(ErrorText[method]);
+};
+
+const getData = () => load(Route.GET_DATA);
+const sendData = (body) => load(Route.SEND_DATA, Method.POST, body);
 
 export {getData, sendData};

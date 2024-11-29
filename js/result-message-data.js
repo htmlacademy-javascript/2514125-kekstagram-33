@@ -1,19 +1,20 @@
 const body = document.querySelector('body');
 const errorDataTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
+const REMOVE_MESSAGE_TIMEOUT = 5000;
 
-const createDataErrorMessage = () => {
+const createDataErrorMessage = (message) => {
   const errorDataElement = errorDataTemplate.cloneNode(true);
 
-
+  if (message) {
+    errorDataElement.querySelector('.data-error__title').textContent = message;
+  }
   body.appendChild(errorDataElement);
+
+  const errorLoadDataElement = body.querySelector('.data-error');
+
   setTimeout(() => {
-    closeDataErrorMessage(errorDataElement);
-  }, 5000);
+    errorLoadDataElement.remove();
+  }, REMOVE_MESSAGE_TIMEOUT);
 };
 
-function closeDataErrorMessage (errorDataElement) {
-  body.removeChild(errorDataElement);
-}
-
-
-export {createDataErrorMessage, closeDataErrorMessage};
+export {createDataErrorMessage};

@@ -1,6 +1,6 @@
 import { isEscKey } from './util.js';
 import './fillter-effect.js';
-import { createErrorMessage, createSuccessMessage } from './result-message-form.js';
+import { showNotificationMessage } from './result-message-form.js';
 import { sendData } from './api.js';
 
 const body = document.querySelector('body');
@@ -11,6 +11,8 @@ const hashtagField = document.querySelector('.text__hashtags');
 const descriptionField = document.querySelector('.text__description');
 const cancelUploadButton = document.querySelector('.img-upload__cancel');
 const submitButton = form.querySelector('.img-upload__submit');
+const templateSuccess = document.querySelector('#success').content;
+const templateError = document.querySelector('#error').content;
 
 const HASHTAG_UNVALID = /[^\w\u0400-\u04FF]/;
 
@@ -33,12 +35,15 @@ const showOverlay = () => {
 };
 
 const hideOverlay = () => {
-  form.reset();
-  pristine.reset();
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onEscKeydown);
+};
+
+const resetForm = () => {
+  form.reset();
+  pristine.reset();
 };
 
 const textFieldActive = () => document.activeElement === hashtagField || document.activeElement === descriptionField;
@@ -94,36 +99,31 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Опубликовать';
 };
 
-const resetForm = () => {
-  const scaleValue = document.querySelector('.scale__control--value');
-  scaleValue.value = 100;
-  hashtagField.value = '';
-  descriptionField.value = '';
-  uploadFile.value = '';
-};
+const setUserFormSubmit = async (forElement) => {
 
-const setUserFormSubmit = (onSuccess) => {
-  form.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-
-    const isValid = pristine.validate();
-    if (isValid) {
-      blockSubmitButton();
-      sendData(new FormData(evt.target))
-        .then(() => {
-          createSuccessMessage();
-          onSuccess();
-          resetForm();
-        })
-        .catch(() => {
-          createErrorMessage();
-        })
-        .finally(() => {
-          unblockSubmitButton();
-        });
+  const isValid = pristine.validate();
+  if(isValid) {
+    blockSubmitButton();
+    try {
+      await sendData(new FormData(forElement));
+      showNotificationMessage(templateSuccess);
+      hideOverlay();
+      resetForm();
+    } catch (error) {
+      showNotificationMessage(templateError);
+    } finally {
+      unblockSubmitButton();
     }
-  });
+  }
 };
+
+const formSubmitHandler = (evt) => {
+  evt.preventDefault();
+  setUserFormSubmit(evt.target);
+};
+
+form.addEventListener('submit', formSubmitHandler);
+
 
 uploadFile.addEventListener('change', onFileInputChange);
 cancelUploadButton.addEventListener('click', onCancelUploadButtonClick);
