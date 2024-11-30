@@ -25,7 +25,6 @@ function closeUserModal() {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
   commentsShown = 0;
-  commentsShown = 0;
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }
@@ -86,10 +85,6 @@ const openUserModal = (data) => {
   body.classList.add('modal-opem');
 
   renderBigPictureDetails(data);
-  comments = data.comments;
-  if (comments.length > 0) {
-    renderComments(comments);
-  }
   comments = data.comments;
   if (comments.length > 0) {
     renderComments(comments);
