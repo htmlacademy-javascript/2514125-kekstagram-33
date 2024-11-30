@@ -54,6 +54,7 @@ function onEscKeydown(evt) {
   if (isEscKey(evt) && !textFieldActive()) {
     evt.preventDefault();
     hideOverlay();
+    resetForm();
   }
 }
 
