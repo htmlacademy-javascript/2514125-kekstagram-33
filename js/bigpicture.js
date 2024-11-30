@@ -9,9 +9,7 @@ const closeModalButton = document.querySelector('.big-picture__cancel');
 const bigPictureClass = bigPicture.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPicture.querySelector('.likes-count');
 const bigPicturesCaption = bigPicture.querySelector('.social__caption');
-const COMMENTS_TO_SHOW = 5;
-let commentsShown = 0;
-let comments = [];
+
 const COMMENTS_TO_SHOW = 5;
 let commentsShown = 0;
 let comments = [];
@@ -63,29 +61,15 @@ const renderComments = () => {
     commentsLoader.classList.remove('hidden');
   }
 
-const renderComments = () => {
-  commentsShown += COMMENTS_TO_SHOW;
-
-  if (commentsShown >= comments.length) {
-    commentsLoader.classList.add('hidden');
-    commentsShown = comments.length;
-  } else {
-    commentsLoader.classList.remove('hidden');
-  }
-
   commentsList.innerHTML = '';
 
   const fragment = document.createDocumentFragment();
   for (let i = 0; i < commentsShown; i++) {
     const commentElement = createBigPicutersComment(comments[i]);
-  for (let i = 0; i < commentsShown; i++) {
-    const commentElement = createBigPicutersComment(comments[i]);
     fragment.appendChild(commentElement);
-  }
   }
 
   commentsList.appendChild(fragment);
-  commentsCount.innerHTML = `<span class="social__comment-shown-count">${commentsShown}</span> из <span class="comments-count">${comments.length}</span> комментариев`;
   commentsCount.innerHTML = `<span class="social__comment-shown-count">${commentsShown}</span> из <span class="comments-count">${comments.length}</span> комментариев`;
 };
 
@@ -114,13 +98,6 @@ const openUserModal = (data) => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-const onCommentsLoaderClick = () => renderComments();
-
-commentsLoader.addEventListener('click', (onCommentsLoaderClick));
-
-const onCloseModalButtonClick = () => closeUserModal();
-
-closeModalButton.addEventListener('click', (onCloseModalButtonClick));
 const onCommentsLoaderClick = () => renderComments();
 
 commentsLoader.addEventListener('click', (onCommentsLoaderClick));
