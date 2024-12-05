@@ -142,8 +142,6 @@ const formSubmitHandler = (evt) => {
 };
 
 form.addEventListener('submit', formSubmitHandler);
-
-
 uploadFile.addEventListener('change', onFileInputChange);
 cancelUploadButton.addEventListener('click', onCancelUploadButtonClick);
 

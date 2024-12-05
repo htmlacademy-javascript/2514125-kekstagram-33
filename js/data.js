@@ -45,7 +45,6 @@ const MAX_VALUE_LIKES = 200;
 const MIN_VALUE_COMMENTS_LENGTH = 0;
 const MAX_VALUE_COMMENTS_LENGTH = 30;
 
-// Генерация коментария
 const generateMessage = () => Array.from({length: getRandomInteger(MIN_VALUE_MESSAGE, MAX_VALUE_MESSAGE)}, () => getRandomArrayElement(MESSAGES)).join('');
 
 const createIdComment = createIdGenerator();
@@ -57,7 +56,6 @@ const generateComment = () => ({
   name: getRandomArrayElement(NAMES)
 });
 
-//Генерация картинки
 const createIdPicture = createIdGenerator();
 const createIdPhoto = createIdGenerator();
 
@@ -69,7 +67,6 @@ const generatePicture = () => ({
   comments: Array.from({length: getRandomInteger(MIN_VALUE_COMMENTS_LENGTH, MAX_VALUE_COMMENTS_LENGTH)}, (_, commentIndex) => generateComment(commentIndex)),
 });
 
-// Создание 25 объектов
 const getPictures = () => Array.from({length: PICTURE_COUNT}, (_, pictureIndex) => generatePicture(pictureIndex + 1));
 
 export {getPictures};
