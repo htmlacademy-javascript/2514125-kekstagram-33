@@ -19,6 +19,8 @@ const createPictures = ((data) => {
 });
 
 const makePicturesOnPage = (pictures) => {
+  document.querySelectorAll('.picture').forEach((element) => element.remove());
+
   const picturesListFragment = document.createDocumentFragment();
 
   pictures.forEach((pictureElement) => {
