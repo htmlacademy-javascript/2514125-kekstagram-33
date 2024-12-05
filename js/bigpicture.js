@@ -10,6 +10,7 @@ const bigPictureClass = bigPicture.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPicture.querySelector('.likes-count');
 const bigPicturesCaption = bigPicture.querySelector('.social__caption');
 
+
 const COMMENTS_TO_SHOW = 5;
 let commentsShown = 0;
 let comments = [];
