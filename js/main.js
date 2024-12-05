@@ -6,11 +6,12 @@ import { getData } from './api.js';
 import { createDataErrorMessage } from './result-message-data.js';
 import { debounce } from './util.js';
 import { filterPictures, applyFilter } from './display-filter.js';
+const TIMEOUT = 500;
 
 const bootstrap = async () => {
   try {
     const photos = await getData();
-    const debouncedMakePicturesOnPage = debounce(makePicturesOnPage, 500);
+    const debouncedMakePicturesOnPage = debounce(makePicturesOnPage, TIMEOUT);
     applyFilter(photos, debouncedMakePicturesOnPage);
     makePicturesOnPage(filterPictures());
   } catch (error) {

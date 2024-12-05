@@ -69,7 +69,7 @@ const renderComments = () => {
   }
 
   commentsList.appendChild(fragment);
-  const commentsDisplay = `<span class="social__comment-shown-count">${commentsShown}</span> из <span class="comments-count">${comments.length}</span> комментариев`;
+  const commentsDisplay = `<span class="social__comment-shown-count">${commentsShown}</span> из <span class="social__comment-total-count">${comments.length}</span> комментариев`;
   commentsCount.innerHTML = commentsDisplay;
 };
 
@@ -83,7 +83,7 @@ const renderBigPictureDetails = ({url, description, likes}) => {
 
 const openUserModal = (data) => {
   bigPicture.classList.remove('hidden');
-  body.classList.add('modal-opem');
+  body.classList.add('modal-open');
 
   renderBigPictureDetails(data);
   comments = data.comments;
