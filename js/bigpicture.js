@@ -10,6 +10,7 @@ const bigPictureClass = bigPicture.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPicture.querySelector('.likes-count');
 const bigPicturesCaption = bigPicture.querySelector('.social__caption');
 
+
 const COMMENTS_TO_SHOW = 5;
 let commentsShown = 0;
 let comments = [];
@@ -69,7 +70,8 @@ const renderComments = () => {
   }
 
   commentsList.appendChild(fragment);
-  commentsCount.innerHTML = `<span class="social__comment-shown-count">${commentsShown}</span> из <span class="comments-count">${comments.length}</span> комментариев`;
+  const commentsDisplay = `<span class="social__comment-shown-count">${commentsShown}</span> из <span class="social__comment-total-count">${comments.length}</span> комментариев`;
+  commentsCount.innerHTML = commentsDisplay;
 };
 
 const renderBigPictureDetails = ({url, description, likes}) => {
@@ -82,7 +84,7 @@ const renderBigPictureDetails = ({url, description, likes}) => {
 
 const openUserModal = (data) => {
   bigPicture.classList.remove('hidden');
-  body.classList.add('modal-opem');
+  body.classList.add('modal-open');
 
   renderBigPictureDetails(data);
   comments = data.comments;
