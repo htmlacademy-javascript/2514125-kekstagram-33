@@ -1,4 +1,4 @@
-import {openUserModal} from './bigpicture.js';
+import {openUserModal} from './big-picture.js';
 
 const pictureSection = document.querySelector('.pictures');
 const pictureItemTemplate = document.querySelector('#picture').content.querySelector('.picture');
